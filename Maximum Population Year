@@ -1,0 +1,33 @@
+class Solution:
+    def maximumPopulation(self, logs: List[List[int]]) -> int:
+        population_changes = [0] * 101
+        base_year = 1950
+      
+        
+        for birth_year, death_year in logs:
+           
+            birth_index = birth_year - base_year
+            death_index = death_year - base_year
+          
+           
+            population_changes[birth_index] += 1
+            
+            population_changes[death_index] -= 1
+      
+        
+        current_population = 0
+        max_population = 0
+        year_with_max_population = 0
+      
+        
+        for year_index, population_change in enumerate(population_changes):
+            
+            current_population += population_change
+          
+           
+            if max_population < current_population:
+                max_population = current_population
+                year_with_max_population = year_index
+      
+        
+        return year_with_max_population + base_year
