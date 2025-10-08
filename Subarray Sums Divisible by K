@@ -1,0 +1,20 @@
+class Solution:
+    def subarraysDivByK(self, nums: List[int], k: int) -> int:
+        n = len(nums)
+
+        # Dictionary to store previously seen remainders along with their frequency
+        seenRemainders = {0: 1}
+
+        subarrayCount, prefixSum = 0, 0
+        for i in range(n):
+            prefixSum += nums[i]
+
+            # Normalize remainder
+            remainder = ((prefixSum % k) + k) % k
+
+            if remainder in seenRemainders:
+                subarrayCount += seenRemainders[remainder]
+
+            seenRemainders[remainder] = seenRemainders.get(remainder, 0) + 1
+
+        return subarrayCount
